@@ -5,30 +5,32 @@
  * the AlphaNumeric plugin.
  */
 
-jQuery.fn.alphanumeric = function(r) {
-    alphanumericHelper(this, r, true, true);
-};
-jQuery.fn.numeric = function(r) {
-    alphanumericHelper(this, r, false, true);
-};
-jQuery.fn.alpha = function(r) {
-    alphanumericHelper(this, r, true, false);
-};
-var alphanumericHelper = function(obj, restraints, alpha, numeric) {
-    var regex = "";
-    if (numeric)
-        regex += "0-9";
-    if (alpha) {
-        if (restraints == undefined || !restraints.allcaps)
-            regex += "a-z";
-        if (restraints == undefined || !restraints.nocaps)
-            regex += "A-Z";
-    }
-    if (restraints != undefined && restraints.allow != undefined)
-        regex += RegExp.escape(restraints.allow);
+(function ($) {
+    jQuery.fn.alphanumeric = function(r) {
+        alphanumericHelper(this, r, true, true);
+    };
+    jQuery.fn.numeric = function(r) {
+        alphanumericHelper(this, r, false, true);
+    };
+    jQuery.fn.alpha = function(r) {
+        alphanumericHelper(this, r, true, false);
+    };
+    var alphanumericHelper = function(obj, restraints, alpha, numeric) {
+        var regex = "";
+        if (numeric)
+            regex += "0-9";
+        if (alpha) {
+            if (restraints == undefined || !restraints.allcaps)
+                regex += "a-z";
+            if (restraints == undefined || !restraints.nocaps)
+                regex += "A-Z";
+        }
+        if (restraints != undefined && restraints.allow != undefined)
+            regex += RegExp.escape(restraints.allow);
 
-    $(obj).regexRestrict(RegExp("[^"+regex+"]", "g"))
-};
+        $(obj).regexRestrict(RegExp("[^"+regex+"]", "g"))
+    };
+})(jQuery);
 
 /*
  * Function created by Colin Snover in response to an article by Simon Willison
@@ -38,5 +40,3 @@ var alphanumericHelper = function(obj, restraints, alpha, numeric) {
 RegExp.escape = function(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
-
-
