@@ -3,8 +3,23 @@
  * function to only allow input of a certain form.
  */
 (function ($) {
+    function hasInputEvent() {
+        if ("oninput" in document.body) {
+            return true;
+        }
+        else {
+        // Old versions of Firefox support oninput but have no oninput property
+            var ok = false,
+                handler = function(){ ok = true; };
+            $(window).bind('input', handler);
+            $(window).trigger('input');
+            $(window).unbind('input', handler);
+            return ok;
+        }
+    };
+
     jQuery.fn.restrict = function(sanitizationFunc) {
-        $(this).bind($.browser.msie ? "keyup" : "input", function(e) {
+        $(this).bind(hasInputEvent() ? "input" : "keyup", function(e) {
             $(this).val(sanitizationFunc($(this).val()));
         });
     };
