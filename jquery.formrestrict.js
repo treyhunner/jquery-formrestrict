@@ -3,8 +3,13 @@
  * function to only allow input of a certain form.
  */
 (function ($) {
+    var inputEvents = "input";
+    if (!("oninput" in document || "oninput" in $("<input>")[0])) {
+        inputEvents += " keyup";
+    }
+
     jQuery.fn.restrict = function(sanitizationFunc) {
-        $(this).bind($.browser.msie ? "keyup" : "input", function(e) {
+        $(this).bind(inputEvents, function(e) {
             $(this).val(sanitizationFunc($(this).val()));
         });
     };
