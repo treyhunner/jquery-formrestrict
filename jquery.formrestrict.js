@@ -5,7 +5,7 @@
 (function ($) {
     var inputEvents = "input";
     if (!("oninput" in document || "oninput" in $("<input>")[0])) {
-        inputEvents += " keyup";
+        inputEvents += " keypress keyup";
     }
 
     jQuery.fn.restrict = function(sanitizationFunc) {
