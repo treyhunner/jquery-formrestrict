@@ -10,7 +10,11 @@
 
     jQuery.fn.restrict = function(sanitizationFunc) {
         $(this).bind(inputEvents, function(e) {
-            $(this).val(sanitizationFunc($(this).val()));
+            var val = $(this).val();
+            var sanitizedVal = sanitizationFunc(val);
+            if (val != sanitizedVal) {
+                $(this).val(sanitizedVal);
+            }
         });
     };
 
