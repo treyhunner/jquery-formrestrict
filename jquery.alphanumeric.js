@@ -7,16 +7,27 @@
 
 (function ($) {
     jQuery.fn.alphanumeric = function(r) {
-        alphanumericHelper(this, r, true, true);
+        alphanumericHelper(this, r, true, true, false);
     };
     jQuery.fn.numeric = function(r) {
-        alphanumericHelper(this, r, false, true);
+        alphanumericHelper(this, r, false, true, false);
     };
     jQuery.fn.alpha = function(r) {
-        alphanumericHelper(this, r, true, false);
+        alphanumericHelper(this, r, true, false, false);
     };
-    var alphanumericHelper = function(obj, restraints, alpha, numeric) {
+    jQuery.fn.alphanumericSpaces = function(r) {
+        alphanumericHelper(this, r, true, true, true);
+    };
+    jQuery.fn.numericSpaces = function(r) {
+        alphanumericHelper(this, r, false, true, true);
+    };
+    jQuery.fn.alphaSpaces = function(r) {
+        alphanumericHelper(this, r, true, false, true);
+    };
+    var alphanumericHelper = function(obj, restraints, alpha, numeric, spaces) {
         var regex = "";
+        if (spaces)
+            regex += " ";
         if (numeric)
             regex += "0-9";
         if (alpha) {
