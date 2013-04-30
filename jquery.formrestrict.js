@@ -20,7 +20,7 @@
                 var val = $this.val();
                 var sanitizedVal = sanitizationFunc(val);
 
-                if (val != sanitizedVal) {
+                if (val !== sanitizedVal) {
                     $this.val(sanitizedVal);
                 }
             });
